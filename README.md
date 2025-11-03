@@ -104,6 +104,10 @@ uvicorn app:app --host 0.0.0.0 --port 8000
 
 ### Deploy to Kubernetes
 ```bash
+# IMPORTANT: First update the API key in k8s/secret.yaml
+# Encode your API key: echo -n "your-actual-api-key" | base64
+# Replace the placeholder in secret.yaml with your encoded key
+
 # Apply all manifests
 kubectl apply -f k8s/
 
@@ -114,10 +118,12 @@ kubectl get services
 
 ### Configuration
 - **ConfigMap** (`k8s/configmap.yaml`): Contains SYMBOL and NDAYS configuration
-- **Secret** (`k8s/secret.yaml`): Contains API key (base64 encoded)
+- **Secret** (`k8s/secret.yaml`): Contains API key (base64 encoded) - **UPDATE WITH YOUR REAL API KEY**
 - **Deployment** (`k8s/deployment.yaml`): Main application deployment
 - **Service** (`k8s/service.yaml`): Internal service exposure
 - **Ingress** (`k8s/ingress.yaml`): External access configuration
+
+> ⚠️ **Security Note**: The `secret.yaml` contains a placeholder. You must replace it with your actual Alpha Vantage API key before deployment.
 
 ## 3. API Usage
 
